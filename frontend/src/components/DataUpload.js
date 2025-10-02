@@ -298,10 +298,38 @@ const DataUpload = () => {
                     from 2,500 customers across 8 product categories. This dataset includes 
                     realistic customer behavior patterns perfect for testing all analytics features.
                   </p>
-                  <Button variant="outline" className="text-blue-700 border-blue-300 hover:bg-blue-100">
-                    <Database className="h-4 w-4 mr-2" />
-                    Download Sample Data
-                  </Button>
+                  <div className="space-x-3">
+                    <Button 
+                      variant="outline" 
+                      className="text-blue-700 border-blue-300 hover:bg-blue-100"
+                      onClick={() => {
+                        const link = document.createElement('a');
+                        link.href = `${BACKEND_URL}/api/download/sample-dataset`;
+                        link.download = 'retail_sales_sample_dataset.csv';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      }}
+                    >
+                      <Database className="h-4 w-4 mr-2" />
+                      Download Sample Data
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="text-blue-700 border-blue-300 hover:bg-blue-100"
+                      onClick={() => {
+                        const link = document.createElement('a');
+                        link.href = `${BACKEND_URL}/api/download/data-dictionary`;
+                        link.download = 'data_dictionary.json';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      }}
+                    >
+                      <FileText className="h-4 w-4 mr-2" />
+                      Data Dictionary
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
