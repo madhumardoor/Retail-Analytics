@@ -182,23 +182,10 @@ const DatasetOverview = () => {
                       onClick={() => navigate(`/dashboard/${dataset.id}`)}
                       className="flex-1"
                       size="sm"
+                      data-testid="view-dashboard-btn"
                     >
-                      Dashboard
+                      View Dashboard
                       <ArrowRight className="h-3 w-3 ml-1" />
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      onClick={() => navigate(`/rfm-analysis?dataset=${dataset.id}`)}
-                      size="sm"
-                    >
-                      RFM
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      onClick={() => navigate(`/clustering?dataset=${dataset.id}`)}
-                      size="sm"
-                    >
-                      Cluster
                     </Button>
                   </div>
                 </CardContent>
