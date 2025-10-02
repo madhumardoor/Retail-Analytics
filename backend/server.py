@@ -360,7 +360,7 @@ async def perform_rfm_analysis(dataset_id: str):
         await db.rfm_analyses.insert_one(rfm_analysis_data)
         
         return {
-            "analysis_id": rfm_analysis.id,
+            "analysis_id": str(uuid.uuid4()),
             "rfm_results": rfm_results,
             "summary": {
                 "total_customers": len(rfm_df),
