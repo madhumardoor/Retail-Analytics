@@ -167,9 +167,9 @@ def perform_rfm_segmentation(rfm_df: pd.DataFrame) -> Dict[str, Any]:
     
     statistical_tests = {
         'anova_results': {
-            'recency': {'f_statistic': f_stat_r, 'p_value': p_val_r, 'significant': p_val_r < 0.05},
-            'frequency': {'f_statistic': f_stat_f, 'p_value': p_val_f, 'significant': p_val_f < 0.05},
-            'monetary': {'f_statistic': f_stat_m, 'p_value': p_val_m, 'significant': p_val_m < 0.05}
+            'recency': {'f_statistic': float(f_stat_r), 'p_value': float(p_val_r), 'significant': bool(p_val_r < 0.05)},
+            'frequency': {'f_statistic': float(f_stat_f), 'p_value': float(p_val_f), 'significant': bool(p_val_f < 0.05)},
+            'monetary': {'f_statistic': float(f_stat_m), 'p_value': float(p_val_m), 'significant': bool(p_val_m < 0.05)}
         }
     }
     
