@@ -455,6 +455,12 @@ async def get_analyses(dataset_id: str):
     rfm_analyses = await db.rfm_analyses.find({'dataset_id': dataset_id}).to_list(100)
     clustering_analyses = await db.segmentation_results.find({'dataset_id': dataset_id}).to_list(100)
     
+    # Convert ObjectId to string for JSON serialization
+    for analysis in rfm_analyses:
+        analysis['_id'] = str(analysis['_id'])
+    for analysis in clustering_analyses:
+        analysis['_id'] = str(analysis['_id'])
+    
     return {
         "dataset_id": dataset_id,
         "rfm_analyses": rfm_analyses,
