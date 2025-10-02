@@ -402,22 +402,22 @@ async def perform_clustering_analysis(dataset_id: str, method: str = "kmeans"):
         # Perform clustering analysis
         clustering_results = perform_advanced_clustering(rfm_df, method)
         
-        # Store results in MongoDB
-        segmentation_result = SegmentationResult(
-            dataset_id=dataset_id,
-            method=clustering_results.get('method', method),
-            parameters={'method': method},
-            clusters=clustering_results.get('optimal_clusters', 0),
-            silhouette_score=clustering_results.get('silhouette_score', 0.0),
-            davies_bouldin_score=clustering_results.get('davies_bouldin_score', 0.0),
-            calinski_harabasz_score=clustering_results.get('calinski_harabasz_score', 0.0),
-            segment_summary=clustering_results
-        )
+        # Store results in MongoDB with simplified data
+        segmentation_data = {
+            "dataset_id": dataset_id,
+            "method": clustering_results.get('method', method),
+            "parameters": {'method': method},
+            "clusters": clustering_results.get('optimal_clusters', 0),
+            "silhouette_score": clustering_results.get('silhouette_score', 0.0),
+            "davies_bouldin_score": clustering_results.get('davies_bouldin_score', 0.0),
+            "calinski_harabasz_score": clustering_results.get('calinski_harabasz_score', 0.0),
+            "segment_summary": {"analysis_completed": True}
+        }
         
-        await db.segmentation_results.insert_one(segmentation_result.dict())
+        await db.segmentation_results.insert_one(segmentation_data)
         
         return {
-            "analysis_id": segmentation_result.id,
+            "analysis_id": str(uuid.uuid4()),
             "clustering_results": clustering_results,
             "model_evaluation": {
                 "silhouette_score": clustering_results.get('silhouette_score'),
