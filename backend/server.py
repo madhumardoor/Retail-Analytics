@@ -173,11 +173,24 @@ def perform_rfm_segmentation(rfm_df: pd.DataFrame) -> Dict[str, Any]:
         }
     }
     
+    # Convert segment statistics to a serializable format
+    segment_stats_dict = {}
+    for segment in segment_stats.index:
+        segment_stats_dict[segment] = {
+            'recency_mean': float(segment_stats.loc[segment, ('recency', 'mean')]),
+            'recency_std': float(segment_stats.loc[segment, ('recency', 'std')]),
+            'frequency_mean': float(segment_stats.loc[segment, ('frequency', 'mean')]),
+            'frequency_std': float(segment_stats.loc[segment, ('frequency', 'std')]),
+            'monetary_mean': float(segment_stats.loc[segment, ('monetary', 'mean')]),
+            'monetary_std': float(segment_stats.loc[segment, ('monetary', 'std')]),
+            'customer_count': int(segment_stats.loc[segment, ('recency', 'count')])
+        }
+    
     return {
-        'rfm_data': rfm_df.to_dict('records'),
-        'segment_statistics': segment_stats.to_dict(),
+        'segment_statistics': segment_stats_dict,
         'statistical_validation': statistical_tests,
-        'segment_distribution': rfm_df['segment'].value_counts().to_dict()
+        'segment_distribution': rfm_df['segment'].value_counts().to_dict(),
+        'total_customers': len(rfm_df)
     }
 
 def perform_advanced_clustering(rfm_df: pd.DataFrame, method: str = 'kmeans') -> Dict[str, Any]:
