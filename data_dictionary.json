@@ -1,0 +1,101 @@
+{
+  "columns": {
+    "customer_id": {
+      "description": "Unique identifier for each customer",
+      "data_type": "String",
+      "example": "CUST_000001"
+    },
+    "order_id": {
+      "description": "Unique identifier for each order/transaction",
+      "data_type": "String",
+      "example": "ORD_00000001"
+    },
+    "order_date": {
+      "description": "Date when the order was placed",
+      "data_type": "Date (YYYY-MM-DD)",
+      "example": "2024-01-15"
+    },
+    "product_id": {
+      "description": "Unique identifier for each product",
+      "data_type": "String",
+      "example": "ELE_1234"
+    },
+    "product_category": {
+      "description": "Category of the product",
+      "data_type": "String",
+      "values": [
+        "Electronics",
+        "Clothing",
+        "Home & Garden",
+        "Sports & Outdoors",
+        "Books",
+        "Beauty & Health",
+        "Toys & Games",
+        "Automotive"
+      ]
+    },
+    "quantity": {
+      "description": "Number of units purchased",
+      "data_type": "Integer",
+      "range": "1-5"
+    },
+    "unit_price": {
+      "description": "Price per unit of the product",
+      "data_type": "Float",
+      "currency": "USD"
+    },
+    "total_amount": {
+      "description": "Total amount for this line item (quantity * unit_price)",
+      "data_type": "Float",
+      "currency": "USD"
+    },
+    "day_of_week": {
+      "description": "Day of the week when order was placed",
+      "data_type": "String",
+      "values": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
+    },
+    "month": {
+      "description": "Month when order was placed",
+      "data_type": "Integer",
+      "range": "1-12"
+    },
+    "year": {
+      "description": "Year when order was placed",
+      "data_type": "Integer"
+    },
+    "customer_age_group": {
+      "description": "Age group of the customer",
+      "data_type": "String",
+      "values": [
+        "18-25",
+        "26-35",
+        "36-45",
+        "46-55",
+        "56-65",
+        "65+"
+      ]
+    },
+    "customer_gender": {
+      "description": "Gender of the customer",
+      "data_type": "String",
+      "values": [
+        "Male",
+        "Female"
+      ]
+    }
+  },
+  "analysis_notes": {
+    "rfm_analysis": "Use customer_id, order_date, and total_amount for RFM calculation",
+    "segmentation": "Customer segments are embedded based on purchasing patterns",
+    "time_series": "Data spans 2 years with seasonal variations",
+    "outliers": "Some high-value customers and transactions are included realistically"
+  }
+}
