@@ -467,6 +467,38 @@ async def get_analyses(dataset_id: str):
         "clustering_analyses": clustering_analyses
     }
 
+@api_router.get("/download/sample-dataset")
+async def download_sample_dataset():
+    """Download the sample retail sales dataset"""
+    file_path = "/app/sample_retail_data.csv"
+    
+    # Check if file exists
+    import os
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="Sample dataset not found")
+    
+    return FileResponse(
+        path=file_path,
+        filename="retail_sales_sample_dataset.csv",
+        media_type="application/octet-stream"
+    )
+
+@api_router.get("/download/data-dictionary")
+async def download_data_dictionary():
+    """Download the data dictionary JSON file"""
+    file_path = "/app/data_dictionary.json"
+    
+    # Check if file exists
+    import os
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="Data dictionary not found")
+    
+    return FileResponse(
+        path=file_path,
+        filename="data_dictionary.json",
+        media_type="application/json"
+    )
+
 # Include the router in the main app
 app.include_router(api_router)
 
