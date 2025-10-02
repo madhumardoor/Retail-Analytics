@@ -259,8 +259,9 @@ const DataUpload = () => {
                       <Button
                         onClick={() => navigate(`/dashboard/${uploadResult.dataset_id}`)}
                         className="flex items-center"
+                        data-testid="view-dashboard-btn"
                       >
-                        View Dashboard
+                        View Analytics Dashboard
                         <ArrowRight className="h-4 w-4 ml-2" />
                       </Button>
                       <Button
