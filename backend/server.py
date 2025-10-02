@@ -444,6 +444,9 @@ async def perform_clustering_analysis(dataset_id: str, method: str = "kmeans"):
 async def get_datasets():
     """Get all uploaded datasets"""
     datasets = await db.datasets.find().to_list(100)
+    # Convert ObjectId to string for JSON serialization
+    for dataset in datasets:
+        dataset['_id'] = str(dataset['_id'])
     return {"datasets": datasets}
 
 @api_router.get("/analyses/{dataset_id}")
