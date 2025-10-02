@@ -270,13 +270,24 @@ def perform_advanced_clustering(rfm_df: pd.DataFrame, method: str = 'kmeans') ->
         else:
             results = {'error': 'DBSCAN could not find meaningful clusters'}
     
-    # Add cluster statistics
+    # Add cluster statistics in serializable format
     if 'cluster_labels' in results:
         rfm_df_clustered = rfm_df.copy()
         rfm_df_clustered['cluster'] = results['cluster_labels']
         
-        cluster_stats = rfm_df_clustered.groupby('cluster')[features].agg(['mean', 'std', 'count']).round(2)
-        results['cluster_statistics'] = cluster_stats.to_dict()
+        cluster_stats_dict = {}
+        for cluster in rfm_df_clustered['cluster'].unique():
+            cluster_data = rfm_df_clustered[rfm_df_clustered['cluster'] == cluster]
+            cluster_stats_dict[f'cluster_{cluster}'] = {
+                'recency_mean': float(cluster_data['recency'].mean()),
+                'recency_std': float(cluster_data['recency'].std()),
+                'frequency_mean': float(cluster_data['frequency'].mean()),
+                'frequency_std': float(cluster_data['frequency'].std()),
+                'monetary_mean': float(cluster_data['monetary'].mean()),
+                'monetary_std': float(cluster_data['monetary'].std()),
+                'customer_count': int(len(cluster_data))
+            }
+        results['cluster_statistics'] = cluster_stats_dict
     
     return results
 
