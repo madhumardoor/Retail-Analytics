@@ -151,6 +151,22 @@ const Home = () => {
                 View Datasets
               </Button>
             </Link>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="flex items-center"
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = `${BACKEND_URL}/api/download/sample-dataset`;
+                link.download = 'retail_sales_sample_dataset.csv';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+            >
+              <FileText className="h-5 w-5 mr-2" />
+              Sample Dataset
+            </Button>
           </div>
         </div>
 
